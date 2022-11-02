@@ -1,4 +1,4 @@
-`#include <math.h> 
+``#include <math.h> 
 #include <stdio.h> 
 #include <omp.h> 
 #include <vector>
@@ -54,4 +54,4 @@ int main()
     printf("Tiempo requerido: %0.15f\n",time);
 
     return 0;
-}`
+}``
