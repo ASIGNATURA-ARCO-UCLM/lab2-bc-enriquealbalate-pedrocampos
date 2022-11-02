@@ -17,9 +17,16 @@ int main()
 	double h = 1.0 / (double)n; // tamaño intervalo 
 
 	xi = h*0.5;     // centro del primer intervalo 
+
+	#pragma omp parallel for 
 	for (i = 0; i < n; i++) { 
-		sum += (4.0 / (1.0 + xi*xi)); 
-		xi += h; // xi: centro del siguiente intervalo 
+		printf("\nEl hilo %d ejecuta la iteración %d",omp_get_thread_num(),n);
+		#pragma omp atomic
+			sum += (4.0 / (1.0 + xi*xi)); 
+		#pragma omp atomic
+			xi += h; // xi: centro del siguiente intervalo
+		
+
 	} 
 
 	double pi = sum * h; 
