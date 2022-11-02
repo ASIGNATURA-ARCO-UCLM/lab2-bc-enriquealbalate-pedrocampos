@@ -1,4 +1,4 @@
-` 
+ 
 El codigo del programa desarrollado es el siguiente:
 
     #include <math.h> 
@@ -57,4 +57,4 @@ El codigo del programa desarrollado es el siguiente:
         printf("Tiempo requerido: %0.15f\n",time);
 
         return 0;
-    }`
+    }
