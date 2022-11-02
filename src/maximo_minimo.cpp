@@ -23,7 +23,7 @@ int main()
 
     t0=clock();
 
-    omp_set_num_threads(5);
+    //omp_set_num_threads(5);
 
     #pragma omp parallel for schedule(dynamic, 5)
     for (int i=0;i<N;i++){
