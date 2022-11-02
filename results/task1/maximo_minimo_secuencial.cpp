@@ -1,3 +1,4 @@
+
 #include <math.h> 
 #include <stdio.h> 
 #include <omp.h> 
@@ -22,28 +23,18 @@ int main()
     minimo = array[0];
 
     t0=clock();
-
-    //omp_set_num_threads(5);
-
-    #pragma omp parallel for schedule(dynamic, 5)
+   
     for (int i=0;i<N;i++){
 
-        #pragma omp critical
-        {
-            if (maximo < array[i]){
-                maximo = array[i];
-            }
-        }
+        if (maximo < array[i]){
+             maximo = array[i];
+        } 
 
-        #pragma omp critical
-        {
-            if (minimo > array[i]){
-                minimo = array[i];
-            }
+        if (minimo > array[i]){
+            minimo = array[i];
         }
-        
+               
     }
-
 
     t1 = clock();
     double time = (double(t1-t0)/CLOCKS_PER_SEC);

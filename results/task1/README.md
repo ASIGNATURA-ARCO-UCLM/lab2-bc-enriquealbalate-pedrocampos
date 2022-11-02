@@ -1,60 +1,16 @@
 
-El codigo del programa desarrollado es el siguiente:
+# ANÁLISIS DE LOS RESULTADOS OBTENIDOS SEGÚN LA VERSIÓN
 
-    #include <math.h> 
-    #include <stdio.h> 
-    #include <omp.h> 
-    #include <vector>
-    #include <time.h> 
-    #include <ctime>
-    #define N 50 // Probar distintos tamaños de vector 
+Tras la creación y ejecución tanto del programa que resuelve el problema de forma secuencial como paralelizada, se llega a la conclusión de que para un caso como éste, resulta más eficiente el primero de ellos.
 
-    int main() 
-    {  
-        int i = 0;
-        int maximo = 0;
-        int minimo = 0;
-        int array[N];  
-        unsigned t0, t1;
- 
-        // Damos valores aleatorios al vector (entre 0 y 99) 
-        srand (time(NULL)); // Semilla de números aleatorios 
-        for (i = 0; i < N; i++) array[i] = rand()%100; 
+Con el **programa secuencial** se obtienen tiempos de alrededor a 0.000004000000000 segundos aproximadamente.
+Sin embargo, con el **paralelizado**, una **peor marca**: 0.000269000000000 segundos aproximadamente.
 
-        maximo = array[0];
-        minimo = array[0];
+Es importante explicar que para llegar a la versión paralelizada del programa secuencial simplemente se emplean 2 tipos de directivas omp:
 
-        t0=clock();
+* **#pragma omp parallel for schedule(dynamic, 5)**: ayuda a paralelizar estructuras iterativas como lo es el bucle for que la acompaña. Además, utilizamos la opción de dividir el trabajo en partes de igual tamaño (en este caso de 5 en 5) para que se les asignaran a los hilos libres de manera dinámica.
 
-        omp_set_num_threads(5);
-
-        #pragma omp parallel for schedule(dynamic, 5)
-        for (int i=0;i<N;i++){
-
-            #pragma omp critical
-            {
-                if (maximo < array[i]){
-                    maximo = array[i];
-                }
-            }
-
-            #pragma omp critical
-            {
-                if (minimo > array[i]){
-                    minimo = array[i];
-                }
-            }
-        
-        }
+* **#pragma omp critical**: permite que los bloques condicionales if que la acompañan sean tratados como una sección crítica. Así, el valor de la variable "máximo" y "mínimo" serán modificadas y leídas de forma controlada, evitando problemas de coherencia.
 
 
-        t1 = clock();
-        double time = (double(t1-t0)/CLOCKS_PER_SEC);
 
-    
-        printf("El máximo es el %d \n",maximo);
-        printf("El mínimo es el %d \n",minimo);
-        printf("Tiempo requerido: %0.15f\n",time);
-
-        return 0;
-    }
