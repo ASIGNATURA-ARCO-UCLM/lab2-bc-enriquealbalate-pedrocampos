@@ -1,11 +1,11 @@
 ``  
-    #include <math.h> 
-    #include <stdio.h> 
-    #include <omp.h> 
-    #include <vector>
-    #include <time.h> 
-    #include <ctime>
-    #define N 50 // Probar distintos tamaños de vector 
+        #include <math.h> 
+        #include <stdio.h> 
+        #include <omp.h> 
+        #include <vector>
+        #include <time.h> 
+        #include <ctime>
+        #define N 50 // Probar distintos tamaños de vector 
 
     int main() 
     {  
