@@ -14,8 +14,9 @@ int main()
     int array[N];  
     unsigned t0, t1;
  
-    // Damos valores aleatorios al vector (entre 0 y 99) 
+    // Damos valores aleatorios al vector (entre 0 y 99)
     srand (time(NULL)); // Semilla de números aleatorios 
+    #pragma omp parallel for
     for (i = 0; i < N; i++) array[i] = rand()%100; 
 
     maximo = array[0];
@@ -23,9 +24,9 @@ int main()
 
     t0=clock();
 
-    omp_set_num_threads(5);
+    omp_set_num_threads(10);
 
-    #pragma omp parallel for schedule(dynamic, 5)
+    #pragma omp parallel for schedule(dynamic, 10)
     for (int i=0;i<N;i++){
 
         #pragma omp critical
